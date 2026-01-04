@@ -1,98 +1,156 @@
 # My Portfolio Website
 
-A professional, responsive portfolio website designed for job and internship applications. This portfolio showcases your skills, projects, and experience in a clean, modern design.
+A professional, responsive portfolio website built with **Vite + React** for job and internship applications. This portfolio showcases your skills, projects, and experience in a modern, component-based architecture.
 
 ## Features
 
+- ⚛️ **Built with React** - Modern component-based architecture
+- ⚡ **Vite** - Fast development and build tool
 - 🎨 Modern, professional design with smooth animations
 - 📱 Fully responsive (mobile, tablet, and desktop)
 - 🚀 Fast loading and optimized performance
 - 💼 Sections for About, Skills, Projects, and Contact
 - 🎯 Easy to customize with your own information
-- 📧 Contact form for recruiters and employers
+- 📧 Contact form with React state management
 - 🔗 Social media integration
-
-## Live Demo
-
-View your portfolio at: `file:///path/to/index.html` or deploy it to a web hosting service.
 
 ## Quick Start
 
-1. **Customize Your Information**
-   - Open `index.html` and replace placeholder text with your information:
-     - Your name
-     - Your location, education, and status
-     - Social media links (GitHub, LinkedIn, Twitter, Email)
-     - Projects and their descriptions
-     - Skills and technologies
-     - Contact information
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-2. **Add Your Resume**
-   - Create or convert your resume to PDF format
-   - Name it `resume.pdf` and place it in the root directory
-   - The download button will automatically work
+2. **Run Development Server**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
-3. **Update Project Links**
-   - Replace `#` in project links with actual GitHub repository URLs
-   - Add live demo links for your projects
-
-4. **Customize Colors (Optional)**
-   - Open `styles.css` and modify CSS variables in `:root`:
-     ```css
-     --primary-color: #2563eb;
-     --secondary-color: #7c3aed;
-     ```
-
-## File Structure
-
-```
-MyPortfoilio/
-├── index.html          # Main HTML file
-├── styles.css          # Stylesheet with all CSS
-├── script.js           # JavaScript for interactivity
-├── resume.pdf          # Your resume (add this file)
-└── README.md           # This file
-```
-
-## Deployment Options
-
-### Option 1: GitHub Pages (Recommended)
-1. Go to your repository on GitHub
-2. Click on "Settings" > "Pages"
-3. Under "Source", select "main" branch
-4. Click "Save"
-5. Your site will be live at: `https://yourusername.github.io/MyPortfoilio`
-
-### Option 2: Netlify
-1. Go to [Netlify](https://www.netlify.com/)
-2. Drag and drop your project folder
-3. Your site will be live instantly with a custom URL
-
-### Option 3: Vercel
-1. Install Vercel CLI: `npm install -g vercel`
-2. Run `vercel` in your project directory
-3. Follow the prompts
-
-### Option 4: Other Hosting Services
-- **Render**: Free static site hosting
-- **Surge**: Simple command-line deployment
-- **Firebase Hosting**: Google's hosting solution
-- **AWS S3**: Amazon's static site hosting
+3. **Build for Production**
+   ```bash
+   npm run build
+   ```
+   This creates an optimized production build in the `dist` folder.
 
 ## Customization Guide
 
-### Adding New Projects
-1. Copy a project card div in the HTML
-2. Update the title, description, and technologies
-3. Add your project links
+### Update Personal Information
 
-### Changing Skills
-1. Locate the Skills section in `index.html`
-2. Add or remove skill tags as needed
-3. Organize them into relevant categories
+1. **Hero Section** (`src/components/Hero.jsx`):
+   - Replace "Your Name" with your actual name
+   - Update the subtitle and description
+   - Add your social media links
 
-### Modifying Sections
-You can add, remove, or reorder sections by editing the HTML structure. Make sure to update navigation links accordingly.
+2. **About Section** (`src/components/About.jsx`):
+   - Write your personal story
+   - Update location, education, and status
+   - Add your resume PDF to the `public` folder
+
+3. **Skills Section** (`src/components/Skills.jsx`):
+   - Modify the `skillCategories` array with your actual skills
+   - Add or remove skill categories as needed
+
+4. **Projects Section** (`src/components/Projects.jsx`):
+   - Update the `projects` array with your real projects
+   - Add project descriptions, tech stacks, and links
+   - Change project icons
+
+5. **Contact Section** (`src/components/Contact.jsx`):
+   - Update email, phone, and LinkedIn links
+   - Customize the contact form (add backend if needed)
+
+6. **Footer** (`src/components/Footer.jsx`):
+   - Update copyright year and name
+   - Add/remove social media links
+
+### Customize Colors
+
+Edit CSS variables in `src/index.css`:
+
+```css
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #7c3aed;
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+}
+```
+
+## Project Structure
+
+```
+MyPortfoilio/
+├── public/              # Static assets
+├── src/
+│   ├── components/      # React components
+│   │   ├── Navbar.jsx
+│   │   ├── Hero.jsx
+│   │   ├── About.jsx
+│   │   ├── Skills.jsx
+│   │   ├── Projects.jsx
+│   │   ├── Contact.jsx
+│   │   └── Footer.jsx
+│   ├── App.jsx          # Main App component
+│   ├── main.jsx         # Entry point
+│   └── index.css        # Global styles
+├── index.html           # HTML template
+├── package.json         # Dependencies
+└── vite.config.js       # Vite configuration
+```
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## Deployment Options
+
+### Option 1: Vercel (Recommended)
+1. Push your code to GitHub
+2. Go to [vercel.com](https://vercel.com)
+3. Import your repository
+4. Vercel will auto-detect Vite and deploy
+
+### Option 2: Netlify
+1. Build your project: `npm run build`
+2. Drag and drop the `dist` folder to [netlify.com](https://www.netlify.com)
+3. Or connect your GitHub repository for automatic deployments
+
+### Option 3: GitHub Pages
+1. Install gh-pages: `npm install --save-dev gh-pages`
+2. Add to package.json scripts:
+   ```json
+   "predeploy": "npm run build",
+   "deploy": "gh-pages -d dist"
+   ```
+3. Add `base: '/MyPortfoilio/'` to `vite.config.js`
+4. Run: `npm run deploy`
+
+### Option 4: Other Platforms
+- **Render**: Connect GitHub and deploy
+- **Firebase Hosting**: Use Firebase CLI
+- **AWS Amplify**: Connect repository for CI/CD
+
+## Technologies Used
+
+- **React 19** - UI library
+- **Vite 7** - Build tool
+- **CSS3** - Styling with modern features
+- **Font Awesome** - Icons
+- **ESLint** - Code linting
+
+## Tips for Job Applications
+
+1. **Keep it Updated**: Regularly update your projects and skills
+2. **Add Real Projects**: Replace placeholder projects with your actual work
+3. **Professional Content**: Write clear, concise descriptions
+4. **Resume PDF**: Add your resume to the `public` folder
+5. **Test Responsiveness**: Check on mobile, tablet, and desktop
+6. **Performance**: Run `npm run build` and test the production build
+7. **Analytics**: Consider adding Google Analytics
 
 ## Browser Support
 
@@ -102,40 +160,10 @@ You can add, remove, or reorder sections by editing the HTML structure. Make sur
 - Edge (latest)
 - Mobile browsers
 
-## Technologies Used
-
-- HTML5
-- CSS3 (with CSS Grid and Flexbox)
-- Vanilla JavaScript
-- Font Awesome Icons
-
-## Tips for Job Applications
-
-1. **Keep it Updated**: Regularly update your projects and skills
-2. **Add Real Projects**: Replace placeholder projects with your actual work
-3. **Professional Email**: Use a professional email address
-4. **LinkedIn**: Keep your LinkedIn profile updated and link it
-5. **GitHub**: Showcase your best repositories
-6. **Resume**: Always keep an updated PDF resume available
-7. **Proofread**: Check for spelling and grammar errors
-8. **Test**: Test the website on different devices and browsers
-
-## Next Steps
-
-1. Replace all placeholder content with your information
-2. Add your resume PDF file
-3. Test the website locally by opening `index.html` in a browser
-4. Deploy to GitHub Pages or your preferred hosting service
-5. Share your portfolio link in job applications!
-
 ## License
 
 Feel free to use this template for your personal portfolio.
 
-## Contact
-
-For questions or suggestions about this portfolio template, feel free to reach out!
-
 ---
 
-**Good luck with your internship and job applications! 🚀**
+**Built with Vite + React. Good luck with your applications! 🚀**
