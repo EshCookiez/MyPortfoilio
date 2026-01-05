@@ -2,39 +2,47 @@ import './Projects.css';
 
 const Projects = () => {
   const projects = [
-    {
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce application with user authentication, shopping cart, and payment integration.',
-      tech: ['React', 'Node.js', 'MongoDB'],
-      icon: 'fas fa-laptop-code',
-      codeLink: '#',
-      demoLink: '#'
-    },
-    {
-      title: 'Task Management App',
-      description: 'A collaborative task management tool with real-time updates and team collaboration features.',
-      tech: ['JavaScript', 'Firebase', 'CSS'],
-      icon: 'fas fa-tasks',
-      codeLink: '#',
-      demoLink: '#'
-    },
-    {
-      title: 'Data Visualization Dashboard',
-      description: 'Interactive dashboard for visualizing complex datasets with custom charts and filtering options.',
-      tech: ['Python', 'D3.js', 'Flask'],
-      icon: 'fas fa-chart-line',
-      codeLink: '#',
-      demoLink: '#'
-    },
-    {
-      title: 'Weather Forecast App',
-      description: 'Mobile-responsive weather application with geolocation and 7-day forecast using weather API.',
-      tech: ['JavaScript', 'API Integration', 'HTML/CSS'],
-      icon: 'fas fa-mobile-alt',
-      codeLink: '#',
-      demoLink: '#'
-    }
-  ];
+  {
+    title: 'WanderWays Travel Management',
+    description: 'A global travel agency management system designed to streamline operations for trips around the world with flight booking, hotel reservations, and payment processing.',
+    tech: ['React', 'Node. js', 'Bootstrap', 'Material-UI', 'Java'],
+    icon: 'fas fa-plane',
+    codeLink: 'https://github.com/EshCookiez/WanderWays_AppDev',
+    demoLink:  '#'
+  },
+  {
+    title: 'Blockchain Notes App',
+    description:  'A collaborative blockchain-powered notes application with real-time updates, favorites management, and decentralized storage using Cardano SDK.',
+    tech: ['React', 'Firebase', 'Tailwind CSS', 'Cardano SDK'],
+    icon: 'fas fa-sticky-note',
+    codeLink: 'https://github.com/Enriquez-EthanM/Notes-App--Munchkin',
+    demoLink: '#'
+  },
+  {
+    title: 'SKyber Platform',
+    description: 'Multi-platform application combining web and mobile technologies with rich UI components, Firebase integration, and modern build tools.',
+    tech: ['React', 'Kotlin', 'Mantine UI', 'Tailwind CSS'],
+    icon: 'fas fa-laptop-code',
+    codeLink: 'https://github.com/VinceKimlo/IT342-SKyber',
+    demoLink: 'https://skyber-coral.vercel.app'
+  },
+  {
+    title: 'FitQuest Fitness Tracker',
+    description:  'Mobile-native Android app for tracking workouts, setting fitness goals, and monitoring progress with customizable routines and achievements.',
+    tech: ['Kotlin', 'Android SDK', 'Firebase'],
+    icon:  'fas fa-mobile-alt',
+    codeLink: 'https://github.com/Enriquez-EthanM/FitQuest',
+    demoLink: '#'
+  },
+  {
+    title:  'PromptQuest Game',
+    description: 'Interactive web-based game developed for Galactic Pulse Hackathon with engaging UI and custom styling.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    icon: 'fas fa-gamepad',
+    codeLink: 'https://github.com/Japh11/PromptQuest--Galactic-Pulse-Hackathon-',
+    demoLink:  '#'
+  }
+];
 
   return (
     <section id="projects" className="projects">

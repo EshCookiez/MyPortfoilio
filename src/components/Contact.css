@@ -1,6 +1,7 @@
 .contact {
-  background-color: #f9fafb;
+  background-color: var(--bg-light);
   padding: 5rem 0;
+  transition: background-color 0.3s ease;
 }
 
 .contact-content {
@@ -11,8 +12,9 @@
 .contact-intro {
   text-align: center;
   font-size: 1.125rem;
-  color: #6b7280;
+  color: var(--text-light);
   margin-bottom: 3rem;
+  transition: color 0.3s ease;
 }
 
 .contact-methods {
@@ -25,10 +27,10 @@
 .contact-method {
   text-align: center;
   padding: 2rem;
-  background-color: #ffffff;
+  background-color: var(--bg-white);
   border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .contact-method:hover {
@@ -37,31 +39,34 @@
 
 .contact-method i {
   font-size: 2.5rem;
-  color: #2563eb;
+  color: var(--primary-color);
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
 }
 
 .contact-method h3 {
   font-size: 1.125rem;
   margin-bottom: 0.5rem;
-  color: #1f2937;
+  color: var(--text-dark);
+  transition: color 0.3s ease;
 }
 
 .contact-method a {
-  color: #6b7280;
+  color: var(--text-light);
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .contact-method a:hover {
-  color: #2563eb;
+  color: var(--primary-color);
 }
 
 .contact-form {
-  background-color: #ffffff;
+  background-color: var(--bg-white);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
+  transition: background-color 0.3s ease;
 }
 
 .form-group {
@@ -72,17 +77,19 @@
 .form-group textarea {
   width: 100%;
   padding: 1rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border-color);
   border-radius: 0.5rem;
   font-size: 1rem;
   font-family: inherit;
   transition: border-color 0.3s ease;
+  background-color: var(--bg-white);
+  color: var(--text-dark);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #2563eb;
+  border-color: var(--primary-color);
 }
 
 .contact-form .btn {

@@ -1,8 +1,9 @@
 .footer {
-  background-color: #1f2937;
-  color: white;
+  background-color: var(--onyx);
+  color: var(--white);
   padding: 2rem 0;
   text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .footer .container {
@@ -19,11 +20,11 @@
 }
 
 .footer-links a {
-  color: white;
+  color: var(--text-dark);
   transition: all 0.3s ease;
 }
 
 .footer-links a:hover {
-  color: #2563eb;
+  color: var(--primary-color);
   transform: translateY(-3px);
 }

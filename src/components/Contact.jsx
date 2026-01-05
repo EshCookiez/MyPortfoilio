@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
 
 const Contact = () => {
@@ -7,6 +8,11 @@ const Contact = () => {
     email: '',
     message: ''
   });
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    emailjs.init('PlJ0hLQZWnOGuG4CH');
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -17,9 +23,27 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message! I will get back to you soon.');
-    setFormData({ name: '', email: '', message: '' });
+    setLoading(true);
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.message,
+      to_email: 'jaevie.bayona14@gmail.com'
+    };
+
+    emailjs
+      .send('service_3xz0frw', 'template_4dr3tcv', templateParams)
+      .then(() => {
+        alert('Thank you! Your message has been sent successfully.');
+        setFormData({ name: '', email: '', message: '' });
+      })
+      .catch(() => {
+        alert('Failed to send message. Please try again.');
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -34,17 +58,17 @@ const Contact = () => {
             <div className="contact-method">
               <i className="fas fa-envelope"></i>
               <h3>Email</h3>
-              <a href="mailto:your.email@example.com">your.email@example.com</a>
+              <a href="mailto:jaevie.bayona14@gmail.com">jaevie.bayona14@gmail.com</a>
             </div>
-            <div className="contact-method">
+            {/* <div className="contact-method">
               <i className="fas fa-phone"></i>
               <h3>Phone</h3>
               <a href="tel:+1234567890">+1 (234) 567-890</a>
-            </div>
+            </div> */}
             <div className="contact-method">
               <i className="fab fa-linkedin"></i>
               <h3>LinkedIn</h3>
-              <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">Connect with me</a>
+              <a href="https://www.linkedin.com/in/jaevie-bayona-254378168/" target="_blank" rel="noopener noreferrer">Connect with me</a>
             </div>
           </div>
           <form className="contact-form" onSubmit={handleSubmit}>
@@ -81,7 +105,9 @@ const Contact = () => {
                 required
               ></textarea>
             </div>
-            <button type="submit" className="btn btn-primary">Send Message</button>
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? 'Sending...' : 'Send Message'}
+            </button>
           </form>
         </div>
       </div>

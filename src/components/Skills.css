@@ -1,6 +1,7 @@
 .skills {
-  background-color: #f9fafb;
+  background-color: var(--bg-light);
   padding: 5rem 0;
+  transition: background-color 0.3s ease;
 }
 
 .skills-grid {
@@ -10,11 +11,11 @@
 }
 
 .skill-category {
-  background-color: #ffffff;
+  background-color: var(--bg-white);
   padding: 2rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .skill-category:hover {
@@ -24,14 +25,16 @@
 .skill-category h3 {
   font-size: 1.25rem;
   margin-bottom: 1.5rem;
-  color: #1f2937;
+  color: var(--text-dark);
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .skill-category i {
-  color: #2563eb;
+  color: var(--primary-color);
+  transition: color 0.3s ease;
 }
 
 .skill-tags {
@@ -41,8 +44,8 @@
 }
 
 .skill-tag {
-  background-color: #f9fafb;
-  color: #1f2937;
+  background-color: var(--border-color);
+  color: var(--text-dark);
   padding: 0.5rem 1rem;
   border-radius: 2rem;
   font-size: 0.875rem;
@@ -51,8 +54,8 @@
 }
 
 .skill-tag:hover {
-  background-color: #2563eb;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--white);
   transform: translateY(-2px);
 }
 

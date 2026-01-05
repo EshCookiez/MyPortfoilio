@@ -5,22 +5,22 @@ const Skills = () => {
     {
       title: 'Programming Languages',
       icon: 'fas fa-code',
-      skills: ['Python', 'JavaScript', 'Java', 'C++', 'TypeScript']
+      skills: ['JavaScript', 'Java', 'Kotlin', 'Python', 'PHP', 'C++', 'HTML/CSS']
     },
     {
-      title: 'Web Development',
+      title: 'Web & Backend',
       icon: 'fas fa-laptop-code',
-      skills: ['HTML/CSS', 'React', 'Node.js', 'Express', 'REST APIs']
+      skills: ['React', 'Node.js', 'REST APIs', 'Web Design', 'Responsive Layout']
     },
     {
       title: 'Database & Tools',
       icon: 'fas fa-database',
-      skills: ['SQL', 'MongoDB', 'Git', 'Docker', 'AWS']
+      skills: ['Git', 'GitHub', 'SQL', 'MongoDB', 'Firebase', 'Firestore']
     },
     {
-      title: 'Other Skills',
+      title: 'Core Competencies',
       icon: 'fas fa-brain',
-      skills: ['Data Structures', 'Algorithms', 'Problem Solving', 'Agile', 'Team Collaboration']
+      skills: ['Data Structures', 'Algorithms', 'Problem Solving', 'Agile', 'Team Collaboration', 'Code Optimization']
     }
   ];
 
