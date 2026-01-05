@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Color Palette */
+  --onyx: #0f1214ff;
+  --steel-azure: #254e96ff;
+  --digital-blue: #0073e6ff;
+  --cool-horizon: #63a4e6ff;
+  --white: #ffffffff;
+
+  /* Dark Mode (Default) */
+  --primary-color: var(--digital-blue);
+  --secondary-color: var(--cool-horizon);
+  --text-dark: var(--white);
+  --text-light: var(--cool-horizon);
+  --bg-light: #1a1f26;
+  --bg-white: var(--onyx);
+  --border-color: var(--steel-azure);
+  --shadow: 0 4px 6px -1px rgba(0, 115, 230, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 115, 230, 0.3);
+  --gradient: linear-gradient(135deg, var(--steel-azure) 0%, var(--digital-blue) 100%);
+  --gradient-light: linear-gradient(135deg, var(--cool-horizon) 0%, var(--digital-blue) 100%);
+}
+
+[data-theme="light"] {
+  /* Light Mode */
+  --primary-color: var(--steel-azure);
+  --secondary-color: var(--digital-blue);
+  --text-dark: var(--onyx);
+  --text-light: #666;
+  --bg-light: #f0f4f8;
+  --bg-white: var(--white);
+  --border-color: #ddd;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --gradient: linear-gradient(135deg, var(--steel-azure) 0%, var(--digital-blue) 100%);
+  --gradient-light: linear-gradient(135deg, var(--cool-horizon) 0%, var(--digital-blue) 100%);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background-color: var(--bg-white);
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
