@@ -1,106 +1,126 @@
 .contact {
-  background-color: var(--bg-light);
-  padding: 5rem 0;
-  transition: background-color 0.3s ease;
+  padding-bottom: 32px;
 }
 
-.contact-content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.contact-intro {
-  text-align: center;
-  font-size: 1.125rem;
-  color: var(--text-light);
-  margin-bottom: 3rem;
-  transition: color 0.3s ease;
-}
-
-.contact-methods {
+.contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 72px;
+  align-items: start;
 }
 
-.contact-method {
-  text-align: center;
-  padding: 2rem;
-  background-color: var(--bg-white);
-  border-radius: 1rem;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease, background-color 0.3s ease;
+.contact-title {
+  margin-top: 14px;
+  font: 800 clamp(42px, 5.6vw, 68px) / 1 var(--font-bold);
+  letter-spacing: -0.015em;
 }
-
-.contact-method:hover {
-  transform: translateY(-5px);
+.contact-intro {
+  margin-top: 16px;
+  font-size: clamp(17px, 1.6vw, 19px);
+  color: var(--text-2);
 }
-
-.contact-method i {
-  font-size: 2.5rem;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  transition: color 0.3s ease;
+.contact-email {
+  display: inline-block;
+  margin-top: 24px;
+  font: 600 clamp(20px, 2.2vw, 26px) / 1.2 var(--font-bold);
+  overflow-wrap: anywhere;
 }
-
-.contact-method h3 {
-  font-size: 1.125rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-dark);
-  transition: color 0.3s ease;
-}
-
-.contact-method a {
-  color: var(--text-light);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.contact-method a:hover {
-  color: var(--primary-color);
+.contact-links {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  font-weight: 500;
 }
 
 .contact-form {
-  background-color: var(--bg-white);
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: var(--shadow);
-  transition: background-color 0.3s ease;
+  display: grid;
+  gap: 16px;
 }
-
-.form-group {
-  margin-bottom: 1.5rem;
+.contact-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-2);
 }
-
-.form-group input,
-.form-group textarea {
+.contact-form input,
+.contact-form textarea {
   width: 100%;
-  padding: 1rem;
-  border: 2px solid var(--border-color);
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: border-color 0.3s ease;
-  background-color: var(--bg-white);
-  color: var(--text-dark);
+  min-height: 52px;
+  padding: 12px 14px;
+  font: 16px/1.5 var(--font);
+  color: var(--text);
+  background: var(--field);
+  border: 2px solid var(--field-line);
+  border-radius: 0;
+}
+.contact-form textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: var(--text-2);
+  opacity: 1;
+}
+/* After someone has typed in a field and left it still wrong. */
+.contact-form input:user-invalid,
+.contact-form textarea:user-invalid {
+  border-style: dashed;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--primary-color);
-}
-
-.contact-form .btn {
-  width: 100%;
+.contact-send {
+  justify-self: start;
+  min-height: 52px;
+  padding: 0 28px;
+  font: 700 16px var(--font-bold);
+  color: var(--band-ink);
+  background: var(--band-gold);
+  border: 0;
+  border-radius: 0;
   cursor: pointer;
-  border: none;
-  font-size: 1rem;
+}
+.contact-send:hover {
+  background: #ffd266;
+}
+.contact-send:disabled {
+  cursor: progress;
+  opacity: 0.7;
 }
 
-@media (max-width: 768px) {
-  .contact-methods {
-    grid-template-columns: 1fr;
+.contact-status:empty {
+  display: none;
+}
+.contact-status {
+  padding: 12px 14px;
+  border-left: 4px solid var(--band-gold);
+  background: var(--page);
+}
+.contact-status.failed {
+  border-left-style: dashed;
+}
+
+.footer {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+.footer-name {
+  font: 700 18px var(--font-display);
+  color: var(--text);
+}
+
+@media (max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .footer {
+    margin-top: 56px;
   }
 }

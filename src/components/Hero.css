@@ -1,240 +1,176 @@
+/* The moving-band hero: greeting top left, a gold band of words running
+   across the middle, the portrait standing in front of it.
+
+   Parallax: the hero is pinned while Work slides up over it, and its layers
+   rise at different speeds as you scroll. Hero.jsx sets --p (0 to 1, how far
+   Work has covered the hero) and --lift (that as pixels). The portrait, the
+   nearest layer, rises fastest; the band next, so it stays below the collar
+   and never shows in the gap under the chin; the words slowest, fading out.
+   Every layer rises slower than Work, so Work always covers the photo's cut
+   bottom edge. */
+
 .hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  background: var(--gradient);
-  color: var(--text-dark);
-  padding-top: 80px;
+  --p: 0;
+  --lift: 0px;
+  position: sticky;
+  top: 0;
+  z-index: 0;
+  overflow: hidden;
+  height: clamp(620px, calc(100svh - 76px), 860px);
+  background: var(--page);
+  color: var(--text);
+}
+/* Once Work covers the hero, its band stops moving. */
+.hero[data-covered] .hero-track {
+  animation-play-state: paused;
 }
 
-.hero-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  align-items: center;
+/* Not positioned itself, so the status line can pin to the hero's corner.
+   It fades as a whole; the words inside rise (translate, not transform, so
+   it adds to their slide-in without fighting it). */
+.hero-text {
+  padding-top: clamp(40px, 9vh, 104px);
+  opacity: calc(1 - var(--p) * 1.6);
+}
+.hero-name,
+.hero-tagline,
+.hero .hero-status {
+  translate: 0 calc(var(--lift) * -0.1);
+}
+.hero-name,
+.hero-tagline,
+.hero-status {
+  position: relative;
+  z-index: 3;
 }
 
-.hero-content {
-  text-align: left;
-  animation: fadeInUp 1s ease-out;
+.hero-name {
+  max-width: 10em;
+  font: 600 clamp(40px, 4.6vw, 56px)/1.05 var(--font-bold);
+  letter-spacing: -0.01em;
 }
 
-.hero-avatar {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  animation: fadeInDown 1s ease-out;
+.hero-tagline {
+  margin-top: 14px;
+  max-width: 27em;
+  font-size: 18px;
+  color: var(--text-2);
 }
 
-.avatar-placeholder {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: rgba(99, 164, 230, 0.2);
-  border: 3px dashed var(--cool-horizon);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 5rem;
-  color: var(--cool-horizon);
-  transition: all 0.3s ease;
-  margin-bottom: 1.5rem;
+/* Bottom left, aligned with the container's edge. */
+.hero .hero-status {
+  position: absolute;
+  left: max(24px, calc((100% - var(--max)) / 2 + 24px));
+  bottom: 40px;
+  color: var(--text-2);
 }
-
-.avatar-placeholder:hover {
-  background: rgba(99, 164, 230, 0.3);
-  transform: scale(1.05);
-}
-
-.avatar-image {
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--cool-horizon);
-  transition: all 0.3s ease;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 0 30px rgba(99, 164, 230, 0.5);
-}
-
-.avatar-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 50px rgba(99, 164, 230, 0.8);
-}
-
-.avatar-text {
-  color: var(--text-dark);
-  font-size: 0.95rem;
-  opacity: 0.7;
-  text-align: center;
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  margin-bottom: 1rem;
-  font-weight: 700;
-}
-
-.highlight {
-  background: var(--gradient-light);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  opacity: 0.9;
-  color: var(--text-dark);
-}
-
-.hero-description {
-  font-size: 1.125rem;
-  margin-bottom: 2rem;
-  opacity: 0.85;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--text-dark);
-}
-
-.hero-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 0.875rem 2rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
+.hero-status strong {
   font-weight: 600;
-  transition: all 0.3s ease;
-  display: inline-block;
-  border: 2px solid transparent;
+  color: var(--text);
 }
 
-.btn-primary {
-  background-color: var(--primary-color);
-  color: var(--white);
-}
-
-.btn-primary:hover {
-  background-color: var(--digital-blue);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-.btn-secondary {
-  background-color: transparent;
-  color: var(--text-dark);
-  border-color: var(--text-dark);
-}
-
-.btn-secondary:hover {
-  background-color: var(--primary-color);
-  color: var(--white);
-  border-color: var(--primary-color);
-}
-
-.social-links {
+/* The band runs behind the chest, just under the collar. Higher up it would
+   show through the open space between the chin and the collar, which reads
+   as if the words were shining through the face. The collar sits 37% of the
+   portrait's height up from the bottom, so: top >= 100% - 37% × height. */
+.hero-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 68%;
+  z-index: 1;
   display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  font-size: 1.5rem;
+  align-items: center;
+  height: clamp(96px, 10.5vw, 150px);
+  overflow: hidden;
+  background: var(--band-gold);
+  color: var(--band-ink);
+  translate: 0 calc(var(--lift) * -0.3);
 }
-
-.social-links a {
-  color: var(--text-dark);
-  transition: all 0.3s ease;
+.hero-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  font: 800 clamp(58px, 7.2vw, 104px)/1 var(--font-bold);
+  letter-spacing: 0.02em;
+  animation: hero-run 28s linear infinite;
 }
-
-.social-links a:hover {
-  transform: translateY(-3px);
-  opacity: 0.8;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
+@keyframes hero-run {
   to {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateX(-50%);
   }
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
+.hero-portrait {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 2;
+  width: auto;
+  height: 92%;
+  max-width: none;
+  aspect-ratio: 1;
+  transform: translateX(-34%);
+  translate: 0 calc(var(--lift) * -0.5);
+}
+
+@media (max-width: 960px) {
+  .hero-band {
+    top: 75%;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .hero-portrait {
+    height: 74%;
+    transform: translateX(-24%);
   }
 }
 
-@media (max-width: 1024px) {
-  .hero-container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  .hero-content {
-    text-align: center;
-  }
-
-  .avatar-placeholder {
-    width: 250px;
-    height: 250px;
-    font-size: 4rem;
+/* Short windows: the status line moves under the tagline, clear of the band. */
+@media (max-height: 760px) {
+  .hero .hero-status {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin-top: 16px;
   }
 }
 
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.5rem;
+/* Phones: the words stack at the top, the portrait stands centered. */
+@media (max-width: 640px) {
+  /* The phone header wraps to three rows, so the hero gets less height. */
+  .hero {
+    height: clamp(560px, calc(100svh - 150px), 760px);
   }
-
-  .hero-subtitle {
-    font-size: 1.25rem;
+  .hero .hero-status {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin-top: 16px;
   }
-
-  .hero-buttons {
-    flex-direction: column;
-    align-items: center;
+  .hero-band {
+    top: 81%;
   }
-
-  .btn {
-    width: 100%;
-    max-width: 300px;
+  .hero-portrait {
+    height: 58%;
+    transform: translateX(-52%);
   }
-
-  .avatar-placeholder {
-    width: 200px;
-    height: 200px;
-    font-size: 3rem;
+  /* Here the words sit right above the portrait, so they rise a little
+     faster than it and fade sooner, instead of the portrait rising into them. */
+  .hero-name,
+  .hero-tagline,
+  .hero .hero-status {
+    translate: 0 calc(var(--lift) * -0.6);
+  }
+  .hero-text {
+    opacity: calc(1 - var(--p) * 2.4);
   }
 }
 
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 2rem;
+/* No pinning and no parallax for visitors who prefer less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    position: relative;
   }
-
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-
-  .avatar-placeholder {
-    width: 150px;
-    height: 150px;
-    font-size: 2rem;
+  .hero-track {
+    animation: none;
   }
 }

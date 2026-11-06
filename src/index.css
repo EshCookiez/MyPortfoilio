@@ -1,44 +1,61 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Navy and paper, Outfit headings, gold for the moving bands and accents.
+   The rules behind these values are in DESIGN.md. */
+
+/* ---------- Tokens ---------- */
+
+:root,
+:root[data-theme='dark'] {
+  --page: #0b1f3a;
+  --surface-a: #12315c;
+  --surface-b: #173f73;
+  --heading: #f8fafc;
+  --text: #f8fafc;
+  --text-2: #c9d6e5;
+  --line: #2a5a94;
+  --accent: #f2c14e;
+  --underline: #f2c14e;
+  --field: #0b1f3a;
+  --field-line: #5b86bd;
+  --shade: rgba(0, 0, 0, 0.28);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --page: #f5f8fc;
+  --surface-a: #e8eff7;
+  --surface-b: #d6e3f1;
+  --heading: #0b1626;
+  --text: #0b1626;
+  --text-2: #4d6079;
+  --line: #93aac4;
+  --accent: #2a62a3;
+  --underline: #e0a92b;
+  --field: #ffffff;
+  --field-line: #7d95b2;
+  --shade: rgba(11, 22, 38, 0.14);
+  color-scheme: light;
 }
 
 :root {
-  /* Color Palette */
-  --onyx: #0f1214ff;
-  --steel-azure: #254e96ff;
-  --digital-blue: #0073e6ff;
-  --cool-horizon: #63a4e6ff;
-  --white: #ffffffff;
+  /* The intro animation reads --bg and --accent. */
+  --bg: var(--page);
 
-  /* Dark Mode (Default) */
-  --primary-color: var(--digital-blue);
-  --secondary-color: var(--cool-horizon);
-  --text-dark: var(--white);
-  --text-light: var(--cool-horizon);
-  --bg-light: #1a1f26;
-  --bg-white: var(--onyx);
-  --border-color: var(--steel-azure);
-  --shadow: 0 4px 6px -1px rgba(0, 115, 230, 0.2);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 115, 230, 0.3);
-  --gradient: linear-gradient(135deg, var(--steel-azure) 0%, var(--digital-blue) 100%);
-  --gradient-light: linear-gradient(135deg, var(--cool-horizon) 0%, var(--digital-blue) 100%);
+  /* The moving bands: the same gold in both themes. */
+  --band-gold: #f2c14e;
+  --band-ink: #0b1f3a;
+
+  --font: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-bold: 'Outfit', system-ui, sans-serif;
+  --font-display: 'Cinzel', Georgia, serif;
+  --max: 1120px;
 }
 
-[data-theme="light"] {
-  /* Light Mode */
-  --primary-color: var(--steel-azure);
-  --secondary-color: var(--digital-blue);
-  --text-dark: var(--onyx);
-  --text-light: #666;
-  --bg-light: #f0f4f8;
-  --bg-white: var(--white);
-  --border-color: #ddd;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --gradient: linear-gradient(135deg, var(--steel-azure) 0%, var(--digital-blue) 100%);
-  --gradient-light: linear-gradient(135deg, var(--cool-horizon) 0%, var(--digital-blue) 100%);
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
@@ -46,18 +63,197 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  line-height: 1.6;
-  color: var(--text-dark);
-  background-color: var(--bg-white);
   margin: 0;
-  padding: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font: 16px/1.6 var(--font);
+  font-variant-numeric: tabular-nums;
+  background: var(--page);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  color: var(--heading);
+  font-family: var(--font-bold);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+p,
+ul,
+dl,
+dd,
+figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--underline);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+a:hover {
+  color: var(--accent);
+}
+
+::selection {
+  background: var(--band-gold);
+  color: var(--band-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -80px;
+  z-index: 100;
+  padding: 12px 18px;
+  font: 700 15px var(--font-bold);
+  background: var(--band-gold);
+  color: var(--band-ink);
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ---------- Layout ---------- */
 
 .container {
-  max-width: 1200px;
+  width: 100%;
+  max-width: var(--max);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
+.section {
+  padding: 96px 0;
+  background: var(--page);
+}
+
+/* The hero stays pinned while the page scrolls over it, so everything after
+   it sits above it on a solid background. */
+main > :not(.hero) {
+  position: relative;
+  z-index: 1;
+}
+.surface-a {
+  background: var(--surface-a);
+}
+.surface-b {
+  background: var(--surface-b);
+}
+
+.eyebrow {
+  font: 600 13px/1 var(--font-bold);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.section-title {
+  margin-top: 14px;
+  font-size: clamp(34px, 4.4vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Slide-in on scroll ----------
+   When a section scrolls into view (App adds .is-visible to [data-reveal]),
+   its content slides in from the left, one piece after another (--i).
+   Only transform and opacity animate. */
+
+.js .follow {
+  opacity: 0;
+  transform: translateX(-28px);
+}
+.js .is-visible .follow {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.55s ease-out,
+    transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(0.1s + var(--i, 0) * 0.08s);
+}
+
+/* ---------- Theme flip ----------
+   Header.jsx reveals the new theme through a growing circle; the browser's
+   default cross-fade is turned off so only the circle shows. */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* ---------- Moving band ---------- */
+
+.marquee {
+  overflow: hidden;
+  background: var(--band-gold);
+  color: var(--band-ink);
+  font: 800 clamp(40px, 4.6vw, 64px) / clamp(72px, 7.2vw, 104px) var(--font-bold);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-flex;
+  animation: marquee-run 34s linear infinite;
+}
+@keyframes marquee-run {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .js .follow,
+  .js .is-visible .follow {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 20px;
+  }
+  .section {
+    padding: 64px 0;
+  }
+}

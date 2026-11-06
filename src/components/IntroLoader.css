@@ -1,0 +1,234 @@
+/* Intro: an axe throw into a target, then the screen opens from the bullseye in
+   a round wave with ripples behind it. The throw moves in steps, like sprite
+   frames; the wave is smooth. Throw 250–770ms, impact at 770ms (shake, wobble
+   and chips together). When the impact shake (intro-target-hit) starts,
+   IntroLoader.jsx waits half a second, then adds .is-leaving to open the wave. */
+
+/* The radius of the hole in the curtain. Registered so it animates smoothly;
+   browsers without @property just open in one jump. */
+@property --hole {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
+.intro {
+  --px: 6px; /* one art pixel */
+  --hole: 0px;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+.intro.is-leaving {
+  pointer-events: none;
+  animation: intro-open 750ms cubic-bezier(0.35, 0.3, 0.2, 1) forwards;
+}
+
+/* The background and the target, with a round hole cut at the centre. */
+.intro-curtain {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--hole), #000 calc(var(--hole) + 1px));
+  mask-image: radial-gradient(circle at 50% 50%, transparent var(--hole), #000 calc(var(--hole) + 1px));
+}
+
+.intro-stage {
+  position: relative;
+  width: calc(var(--px) * 24);
+  height: calc(var(--px) * 24);
+}
+
+.intro-target {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  animation:
+    intro-target-in 240ms steps(4) both,
+    intro-target-hit 240ms steps(1) 770ms;
+}
+
+/* The wrapper carries the flight path; the sprite inside spins. Placed so the
+   blade edge bites the bullseye, just left of centre, at the final 20° tilt. */
+.intro-axe {
+  position: absolute;
+  left: calc(var(--px) * -4.7);
+  top: calc(var(--px) * 4.65);
+  width: calc(var(--px) * 16);
+  height: calc(var(--px) * 16);
+  animation: intro-fly 520ms linear 250ms both;
+}
+.intro-axe-sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: calc(var(--px) * 6.5) calc(var(--px) * 6.5);
+  animation:
+    intro-spin 520ms steps(24) 250ms both,
+    intro-wobble 300ms steps(1) 770ms;
+}
+
+.intro-chip {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--px);
+  height: var(--px);
+  background: var(--c);
+  opacity: 0;
+  animation: intro-chip 420ms steps(7) 770ms forwards;
+}
+
+/* The wave front rides the edge of the hole; the ripples follow it out. */
+.intro-wave,
+.intro-ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+.intro-wave {
+  width: calc(var(--hole) * 2);
+  height: calc(var(--hole) * 2);
+  border: var(--px) solid var(--accent);
+}
+.is-leaving .intro-wave {
+  opacity: 1;
+}
+.intro-ripple {
+  width: 0;
+  height: 0;
+  border: calc(var(--px) / var(--i)) solid var(--accent);
+}
+.is-leaving .intro-ripple {
+  animation: intro-ripple 900ms cubic-bezier(0.2, 0.6, 0.35, 1) calc(var(--i) * 120ms) forwards;
+}
+
+@keyframes intro-target-in {
+  0% {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes intro-target-hit {
+  0% {
+    transform: translateX(var(--px));
+  }
+  25% {
+    transform: translateX(calc(var(--px) * -1));
+  }
+  50% {
+    transform: translateX(calc(var(--px) * 0.5));
+  }
+  75%,
+  100% {
+    transform: none;
+  }
+}
+
+/* A shallow arc in from off-screen left. */
+@keyframes intro-fly {
+  0% {
+    transform: translate(-60vw, 0);
+  }
+  25% {
+    transform: translate(-45vw, -15vh);
+  }
+  50% {
+    transform: translate(-30vw, -20vh);
+  }
+  75% {
+    transform: translate(-15vw, -15vh);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/* Three turns in 45° frames, ending at a 20° tilt. */
+@keyframes intro-spin {
+  from {
+    transform: rotate(-1060deg);
+  }
+  to {
+    transform: rotate(20deg);
+  }
+}
+
+@keyframes intro-wobble {
+  0% {
+    transform: rotate(28deg);
+  }
+  25% {
+    transform: rotate(14deg);
+  }
+  50% {
+    transform: rotate(24deg);
+  }
+  75% {
+    transform: rotate(18deg);
+  }
+  100% {
+    transform: rotate(20deg);
+  }
+}
+
+@keyframes intro-chip {
+  0%,
+  70% {
+    opacity: 1;
+  }
+  0% {
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--dx) * var(--px)), calc(var(--dy) * var(--px)));
+  }
+}
+
+/* 75vmax reaches past every corner, on wide and tall screens alike. */
+@keyframes intro-open {
+  to {
+    --hole: 75vmax;
+  }
+}
+
+@keyframes intro-ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.8;
+  }
+  100% {
+    width: 120vmax;
+    height: 120vmax;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .intro {
+    --px: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
+}

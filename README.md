@@ -1,169 +1,36 @@
-# My Portfolio Website
+# JV Bayona · Portfolio
 
-A professional, responsive portfolio website built with **Vite + React** for job and internship applications. This portfolio showcases your skills, projects, and experience in a modern, component-based architecture.
+My portfolio site: [my-portfoilio-bay.vercel.app](https://my-portfoilio-bay.vercel.app). Built with React and Vite, deployed on Vercel.
 
-## Features
+## Run it
 
-- ⚛️ **Built with React** - Modern component-based architecture
-- ⚡ **Vite** - Fast development and build tool
-- 🎨 Modern, professional design with smooth animations
-- 📱 Fully responsive (mobile, tablet, and desktop)
-- 🚀 Fast loading and optimized performance
-- 💼 Sections for About, Skills, Projects, and Contact
-- 🎯 Easy to customize with your own information
-- 📧 Contact form with React state management
-- 🔗 Social media integration
-
-## Quick Start
-
-1. **Install Dependencies**
-   ```bash
-   npm install
-   ```
-
-2. **Run Development Server**
-   ```bash
-   npm run dev
-   ```
-   Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
-
-3. **Build for Production**
-   ```bash
-   npm run build
-   ```
-   This creates an optimized production build in the `dist` folder.
-
-## Customization Guide
-
-### Update Personal Information
-
-1. **Hero Section** (`src/components/Hero.jsx`):
-   - Replace "Your Name" with your actual name
-   - Update the subtitle and description
-   - Add your social media links
-
-2. **About Section** (`src/components/About.jsx`):
-   - Write your personal story
-   - Update location, education, and status
-   - Add your resume PDF to the `public` folder
-
-3. **Skills Section** (`src/components/Skills.jsx`):
-   - Modify the `skillCategories` array with your actual skills
-   - Add or remove skill categories as needed
-
-4. **Projects Section** (`src/components/Projects.jsx`):
-   - Update the `projects` array with your real projects
-   - Add project descriptions, tech stacks, and links
-   - Change project icons
-
-5. **Contact Section** (`src/components/Contact.jsx`):
-   - Update email, phone, and LinkedIn links
-   - Customize the contact form (add backend if needed)
-
-6. **Footer** (`src/components/Footer.jsx`):
-   - Update copyright year and name
-   - Add/remove social media links
-
-### Customize Colors
-
-Edit CSS variables in `src/index.css`:
-
-```css
-:root {
-  --primary-color: #2563eb;
-  --secondary-color: #7c3aed;
-  --text-dark: #1f2937;
-  --text-light: #6b7280;
-}
+```bash
+npm install
+npm run dev
 ```
 
-## Project Structure
+Open http://localhost:5173. `npm run build` makes the production build in `dist/`, and `npm run lint` checks the code.
 
-```
-MyPortfoilio/
-├── public/              # Static assets
-├── src/
-│   ├── components/      # React components
-│   │   ├── Navbar.jsx
-│   │   ├── Hero.jsx
-│   │   ├── About.jsx
-│   │   ├── Skills.jsx
-│   │   ├── Projects.jsx
-│   │   ├── Contact.jsx
-│   │   └── Footer.jsx
-│   ├── App.jsx          # Main App component
-│   ├── main.jsx         # Entry point
-│   └── index.css        # Global styles
-├── index.html           # HTML template
-├── package.json         # Dependencies
-└── vite.config.js       # Vite configuration
-```
+## Editing the content
 
-## Available Scripts
+Everything the site says is in [`src/data/profile.js`](src/data/profile.js): the intro, the featured projects (each with a short `blurb` for the grid), experience, education, certificates, skills and earlier projects. The components in `src/components/` only lay it out.
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+- **Project pictures** are in `public/work/`: website screenshots at 1408 × 880 (16:10), and for the mobile apps three buyer-app screens (`mobile-*.webp`, status bars cropped, agents' photos blurred).
+- **Portrait and resume** are `public/files/portrait-suit.webp` (a cut-out on a transparent background, 1000 × 1000) and `public/files/resume.pdf`.
+- **Theme:** dark or light, following the visitor's system until they press the toggle; their choice is remembered in the browser. The colors are the tokens at the top of `src/index.css`; the rules behind them are in [`DESIGN.md`](DESIGN.md).
 
-## Deployment Options
+## Sections
 
-### Option 1: Vercel (Recommended)
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Vercel will auto-detect Vite and deploy
+One page in four parts: hero, work, about, contact. Navy and paper, with gold moving bands.
 
-### Option 2: Netlify
-1. Build your project: `npm run build`
-2. Drag and drop the `dist` folder to [netlify.com](https://www.netlify.com)
-3. Or connect your GitHub repository for automatic deployments
+| Section | File |
+|---|---|
+| Axe-throw intro (plays once per tab) | `src/components/IntroLoader.jsx` |
+| Header: name, nav, sun/moon theme switch (with the theme flip) | `src/components/Header.jsx` |
+| Hero: greeting, moving gold band, cut-out portrait, parallax as Work slides over it | `src/components/Hero.jsx` |
+| Work: four projects in a grid, side projects in one line | `src/components/Work.jsx` |
+| About: experience and skills | `src/components/About.jsx` |
+| Contact: links, form (EmailJS) and the footer | `src/components/Contact.jsx` |
+| Slide-in on scroll | `src/components/follow.js`, styles in `src/index.css` |
 
-### Option 3: GitHub Pages
-1. Install gh-pages: `npm install --save-dev gh-pages`
-2. Add to package.json scripts:
-   ```json
-   "predeploy": "npm run build",
-   "deploy": "gh-pages -d dist"
-   ```
-3. Add `base: '/MyPortfoilio/'` to `vite.config.js`
-4. Run: `npm run deploy`
-
-### Option 4: Other Platforms
-- **Render**: Connect GitHub and deploy
-- **Firebase Hosting**: Use Firebase CLI
-- **AWS Amplify**: Connect repository for CI/CD
-
-## Technologies Used
-
-- **React 19** - UI library
-- **Vite 7** - Build tool
-- **CSS3** - Styling with modern features
-- **Font Awesome** - Icons
-- **ESLint** - Code linting
-
-## Tips for Job Applications
-
-1. **Keep it Updated**: Regularly update your projects and skills
-2. **Add Real Projects**: Replace placeholder projects with your actual work
-3. **Professional Content**: Write clear, concise descriptions
-4. **Resume PDF**: Add your resume to the `public` folder
-5. **Test Responsiveness**: Check on mobile, tablet, and desktop
-6. **Performance**: Run `npm run build` and test the production build
-7. **Analytics**: Consider adding Google Analytics
-
-## Browser Support
-
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers
-
-## License
-
-Feel free to use this template for your personal portfolio.
-
----
-
-**Built with Vite + React. Good luck with your applications! 🚀**
+The contact form sends through EmailJS with the service and template set in `Contact.jsx`; the EmailJS dashboard decides which inbox receives it. Fonts are Outfit, IBM Plex Sans and Cinzel from Google Fonts.

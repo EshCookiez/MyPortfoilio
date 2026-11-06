@@ -2,11 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Professional Portfolio - Showcasing my skills, projects, and experience" />
-    <title>My Portfolio | Software Developer</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>JV Bayona · Junior Software Developer</title>
+    <meta name="description" content="JV Bayona, junior software developer at Homes.ph in Cebu City. Web platforms in Next.js, mobile apps in React Native, and desktop tools in Electron." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="JV Bayona · Junior Software Developer" />
+    <meta property="og:description" content="Web platforms, mobile apps and the tools that keep a team shipping." />
+    <meta property="og:image" content="/work/homesph.jpg" />
+    <meta name="theme-color" content="#0b1f3a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f8fc" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" />
+    <link rel="preload" as="image" href="/files/portrait-suit.webp" type="image/webp" />
+    <script>
+      // Pick the theme before the first paint: the saved choice, else the system's.
+      (function () {
+        var theme;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch (e) {}
+        if (theme !== 'light' && theme !== 'dark') theme = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.add('js');
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

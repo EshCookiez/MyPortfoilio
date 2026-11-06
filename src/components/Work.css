@@ -1,0 +1,139 @@
+.work-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 56px 48px;
+}
+
+.work-shot {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.work-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+
+/* The same 16:10 slot, holding three phone screens. */
+.work-phones {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(8px, 1.4vw, 18px);
+  background: var(--page);
+}
+.work-phones img {
+  height: 84%;
+  width: auto;
+  border-radius: clamp(10px, 1.2vw, 16px);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 24px var(--shade);
+}
+.work-phones img:nth-child(2) {
+  height: 92%;
+}
+
+/* Screens boot: as a project scrolls in, its screenshot unrolls from the top
+   like a page loading, and the phone screens rise in one after another like
+   apps opening. Only with JavaScript (which adds .is-visible), and never for
+   visitors who prefer less motion. */
+.js .work-shot {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.9s cubic-bezier(0.6, 0, 0.2, 1);
+  transition-delay: calc(0.15s + var(--i, 0) * 0.08s);
+}
+.js .work-item.is-visible .work-shot {
+  clip-path: inset(0);
+}
+.js .work-phones img {
+  opacity: 0;
+  translate: 0 60px;
+  scale: 0.88;
+  transition:
+    opacity 0.5s ease-out,
+    translate 0.7s cubic-bezier(0.2, 0.8, 0.2, 1.15),
+    scale 0.7s cubic-bezier(0.2, 0.8, 0.2, 1.15);
+  transition-delay: 0.25s;
+}
+.js .work-phones img:nth-child(2) {
+  transition-delay: 0.39s;
+}
+.js .work-phones img:nth-child(3) {
+  transition-delay: 0.53s;
+}
+.js .work-item.is-visible .work-phones img {
+  opacity: 1;
+  translate: 0;
+  scale: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js .work-shot,
+  .js .work-phones img {
+    clip-path: none;
+    opacity: 1;
+    translate: 0;
+    scale: 1;
+    transition: none;
+  }
+}
+
+.work-head {
+  margin-top: 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.work-num {
+  font: 800 20px/1 var(--font-bold);
+  color: var(--accent);
+}
+.work-head h3 {
+  font-size: clamp(24px, 2.4vw, 28px);
+  line-height: 1.15;
+}
+
+.work-meta {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+.work-blurb {
+  margin-top: 12px;
+  color: var(--text-2);
+}
+.work-stack {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+.work-links {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 22px;
+  font-weight: 500;
+}
+
+.work-also {
+  margin-top: 48px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--text-2);
+}
+.work-also strong {
+  margin-right: 4px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+@media (max-width: 760px) {
+  .work-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 48px;
+  }
+}
